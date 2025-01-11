@@ -1,3 +1,5 @@
+"""The module responsible for transmitting PC data via websockets."""
+
 import asyncio
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
@@ -9,8 +11,10 @@ router: APIRouter = APIRouter()
 DELAY: int = 1
 pc_stats: PCData = PCData(DELAY)
 
+
 @router.websocket("/ws")
 async def send_stats(websocket: WebSocket):
+    """Send PC data via a websocket."""
     await websocket.accept()
 
     try:
