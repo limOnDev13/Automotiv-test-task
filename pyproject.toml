@@ -1,0 +1,21 @@
+[project]
+name = "automotiv-test-task"
+version = "0.1.0"
+description = "An application for real-time monitoring of CPU, RAM, and ROM, as well as storing time values in a database."
+authors = [
+    {name = "Vladimir Volosnikov [volosnikovvladimir@gmail.com]"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi (>=0.115.6,<0.116.0)",
+    "psutil (>=6.1.1,<7.0.0)",
+    "websockets (>=14.1,<15.0)",
+    "jinja2 (>=3.1.5,<4.0.0)",
+    "uvicorn[standard] (>=0.34.0,<0.35.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

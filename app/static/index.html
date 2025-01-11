@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Автомотив</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="block">
+            <p>Уровень загруженности</p>
+        </div>
+        <div class="block">
+            <p>ЦП: <span id="CPU"></span></p>
+            <p>ОЗУ: <span id="RAM"></span></p>
+            <p>ПЗУ: <span id="ROM"></span></p>
+        </div>
+        <div class="block">
+            <button id="timer" onclick="start_timer()">Начать запись</button>
+            <span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+        </div>
+    </div>
+
+    <script src="../js/timer.js"></script>
+</body>
+</html>
