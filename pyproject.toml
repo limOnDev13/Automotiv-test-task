@@ -42,5 +42,6 @@ skip_glob = [
 exclude = [
     ".venv",
     ".venv_dev",
+    "tests",
 ]
 ignore_missing_imports = true
