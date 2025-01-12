@@ -1,8 +1,18 @@
 let hour = 00;
 let minute = 00;
 let second = 00;
+var ws = new WebSocket(`ws://localhost:8000/ws`);
 
-function start_timer() {
+ws.onmessage = function(event) {
+    var stats = JSON.parse(event.data)
+
+    document.getElementById('CPU').innerHTML = stats.CPU
+    document.getElementById('RAM').innerHTML = stats.RAM
+    document.getElementById('ROM').innerHTML = stats.ROM
+};
+
+function start_timer(event) {
+    ws.send("start")
     timer = true;
 
     hour = 0;
@@ -19,7 +29,8 @@ function start_timer() {
     document.getElementById("timer").setAttribute("onclick", "end_timer()");
 }
 
-function end_timer() {
+function end_timer(event) {
+    ws.send("end")
     timer = false;
 
     document.getElementById("timer").innerHTML = "Начать запись";
