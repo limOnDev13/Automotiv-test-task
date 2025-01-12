@@ -12,7 +12,10 @@ dependencies = [
     "psutil (>=6.1.1,<7.0.0)",
     "websockets (>=14.1,<15.0)",
     "jinja2 (>=3.1.5,<4.0.0)",
-    "uvicorn[standard] (>=0.34.0,<0.35.0)"
+    "uvicorn[standard] (>=0.34.0,<0.35.0)",
+    "sqlalchemy[asyncio] (>=2.0.37,<3.0.0)",
+    "asyncpg (>=0.30.0,<0.31.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)"
 ]
 
 
@@ -26,6 +29,7 @@ force-exclude = '''
 /(
     \.venv
   | \.venv_dev
+  | postgres-data
 )
 '''
 
@@ -36,6 +40,7 @@ skip_gitignore = true
 skip_glob = [
     "**/.venv/*",
     "**/.venv_dev/*",
+    "**/postgres-data/*",
 ]
 
 [tool.mypy]
@@ -43,5 +48,6 @@ exclude = [
     ".venv",
     ".venv_dev",
     "tests",
+    "postgres-data"
 ]
 ignore_missing_imports = true
