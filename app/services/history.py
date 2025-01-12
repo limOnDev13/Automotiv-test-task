@@ -27,6 +27,7 @@ class HistoryManager(object):
     """
 
     __recording: bool = False
+    __break: bool = False
 
     def __init__(self, websocket: WebSocket, interval: float = 1):
         """Initialize class."""
@@ -39,7 +40,7 @@ class HistoryManager(object):
 
     async def __get_data(self) -> AsyncGenerator[Dict[str, str], None]:
         """Make a measurement and make a delay."""
-        while True:
+        while not self.__break:
             data: Dict[str, str] = self.__pc_data.data_dict
             logger.debug("Measured CPU, RAM, and ROM loads: %s", str(data))
 
@@ -50,15 +51,22 @@ class HistoryManager(object):
 
     async def __send_stat(self) -> None:
         """Send the first measurement data in the queue."""
-        while True:
-            data: Dict[str, str] = await self.__queue.get()
-            logger.debug("Sending the data: %s", str(data))
-            await self.__ws.send_json(data)
+        try:
+            while not self.__break:
+                data: Dict[str, str] = await self.__queue.get()
+                logger.debug("Sending the data: %s", str(data))
+                await self.__ws.send_json(data)
+        except WebSocketDisconnect:
+            logger.warning("Websocket was disconnected.")
+            self.__break = True
+        except RuntimeError as exc:
+            logger.warning(str(exc))
+            self.__break = True
 
     async def __update_mode(self):
         """Receive a message from the client from change mode."""
         try:
-            while True:
+            while not self.__break:
                 client_msg: str = await self.__ws.receive_text()
                 logger.debug(
                     "The client has updated the recording mode: %s", str(client_msg)
@@ -77,6 +85,7 @@ class HistoryManager(object):
                     )
         except WebSocketDisconnect:
             logger.warning("Websocket was disconnected.")
+            self.__break = True
 
     async def __save_stat(self, data: Dict[str, str]):
         """Save the measurement to the database."""
@@ -101,6 +110,7 @@ class HistoryManager(object):
 
         except WebSocketDisconnect:
             logger.warning("Websocket was disconnected.")
+            return
 
     async def run(self):
         """
