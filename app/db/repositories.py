@@ -22,5 +22,5 @@ class HistoryRepository(object):
     @connection
     async def get_all(self, session: AsyncSession) -> Sequence[Stat]:
         """Get time-sorted records from the database."""
-        history_q = await session.execute(select(Stat).order_by(Stat.c.time))
+        history_q = await session.execute(select(Stat).order_by(Stat.time))
         return history_q.scalars().all()

@@ -56,11 +56,11 @@ class HistoryManager(object):
                 data: Dict[str, str] = await self.__queue.get()
                 logger.debug("Sending the data: %s", str(data))
                 await self.__ws.send_json(data)
-        except WebSocketDisconnect:
+        except (
+            WebSocketDisconnect,
+            RuntimeError,
+        ):
             logger.warning("Websocket was disconnected.")
-            self.__break = True
-        except RuntimeError as exc:
-            logger.warning(str(exc))
             self.__break = True
 
     async def __update_mode(self):
