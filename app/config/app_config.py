@@ -21,6 +21,9 @@ class DB(object):
 
     def __init__(self):
         """Initialize the class."""
+        if os.getenv("DEBUG", "0") == "1":
+            self.url = os.getenv("POSTGRES_TEST_URL", "")
+
         if self.url == "":
             self.url = (
                 f"postgresql+asyncpg://{self.user}:{self.password}"
