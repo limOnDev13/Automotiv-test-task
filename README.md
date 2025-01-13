@@ -6,6 +6,7 @@ and ROM usage in real time with the ability to save measurement history in a dat
 
 ## Demo
 
+![alt text](demo.gif)
 
 ---
 ## Setup and launch
@@ -25,3 +26,20 @@ ___
 - **GET "/"** - The main page, which shows the load on the CPU, RAM and ROM in real time
 - **"/ws"** - The WebSocket endpoint
 - **GET "/history"** - A page with the measurement history
+
+___
+
+## Stack
+- FastAPI
+- websockets
+- Postgres
+- SQLAlchemy
+- Jinja2
+- Docker
+- Pytest
+
+## Ways to improve
+
+- Add more tests
+- Add static output via Nginx
+- Add the ability to interactively change the delay between measurements
