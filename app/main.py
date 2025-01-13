@@ -9,6 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from .config.app_config import Config
 from .config.log_config import LOG_CONFIG
 from .db.database import Base, engine
+from .routes.history_route import router as history_router
 from .routes.pc_data_route import router as websocket_router
 
 config = Config()
@@ -47,8 +48,9 @@ def create_app() -> FastAPI:
     app_ = FastAPI(lifespan=lifespan)
 
     app_.include_router(websocket_router)
+    app_.include_router(history_router)
 
-    app_.mount("/", StaticFiles(directory="app/static", html=True))
+    app_.mount("/", StaticFiles(directory="app/static"))
 
     return app_
 
