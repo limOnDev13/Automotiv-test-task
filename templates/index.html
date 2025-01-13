@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="header">
+    <div>
+        <p>Уровень загруженности</p>
+    </div>
+    <div class="menu">
+        <div>
+            <form action="http://localhost:8000/history">
+                <input type="submit" value="История" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="block">
+    <p>ЦП: <span id="CPU"></span></p>
+    <p>ОЗУ: <span id="RAM"></span></p>
+    <p>ПЗУ: <span id="ROM"></span></p>
+</div>
+<div class="block">
+    <button id="timer" onclick="start_timer()">Начать запись</button>
+    <span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+</div>
+<script src="/js/websockets.js"></script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block main %}
+<table>
+    <tr>
+        <td>Время</td>
+        <td>ЦП</td>
+        <td>ОЗУ</td>
+        <td>ПЗУ</td>
+    </tr>
+    {% for record in history %}
+    <tr>
+        <td>{{ record.time }}</td>
+        <td>{{ record.CPU }}</td>
+        <td>{{ record.RAM }}</td>
+        <td>{{ record.ROM }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
