@@ -1,6 +1,7 @@
 """The module responsible for model descriptions in the database."""
 
 from datetime import datetime
+from typing import Any, Dict
 
 from sqlalchemy import JSON, DateTime, Integer
 from sqlalchemy.orm import Mapped, mapped_column
@@ -25,3 +26,9 @@ class Stat(Base):
                 (f"{key}: {value}" for key, value in self.pc_stats.items())
             ),
         )
+
+    def to_hash(self) -> Dict[str, Any]:
+        """Return a one-dimensional dictionary with all fields."""
+        result: Dict[str, Any] = {"time": self.time}
+        result.update(self.pc_stats)
+        return result
