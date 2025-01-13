@@ -18,8 +18,8 @@ logger = getLogger("main.db")
 db_config = Config().db
 
 engine: AsyncEngine = create_async_engine(db_config.url)
-Base = declarative_base()
 Session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+Base = declarative_base()
 
 
 def connection(func: Callable):
@@ -33,5 +33,6 @@ def connection(func: Callable):
             except Exception as exc:
                 logger.exception(str(exc))
                 await session.rollback()
+                raise exc
 
     return wrapper

@@ -8,7 +8,8 @@ from fastapi.staticfiles import StaticFiles
 
 from .config.app_config import Config
 from .config.log_config import LOG_CONFIG
-from .db.database import Base, engine
+from .db.database import engine
+from .db.models import Base
 from .routes.history_route import router as history_router
 from .routes.pc_data_route import router as websocket_router
 
@@ -34,6 +35,7 @@ async def lifespan(app_: FastAPI):
             logger.debug("Debug mode.")
             logger.warning("Drop db.")
             await conn.run_sync(Base.metadata.drop_all)
+
         await conn.run_sync(Base.metadata.create_all)
 
     yield
