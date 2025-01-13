@@ -188,3 +188,5 @@ fabric.properties
 
 # db files
 /postgres-data/
+/.env.dev
+/docker-compose.dev.yml
